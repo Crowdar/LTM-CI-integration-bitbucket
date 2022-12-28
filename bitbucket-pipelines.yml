@@ -1,0 +1,75 @@
+image: crowdar/lippia:3.1.2.2
+pipelines:
+
+#################### Empieza Seccion manual del pipeline #####################
+  custom:
+    pipeline-manual: 
+      - variables:          
+          - name: TAG
+            default: "@Success"
+          - name: TESTTYPE
+            default: "Secuencial"          
+          - name: LANG
+            default: "@EN"
+      - parallel:
+          steps:
+            - step: 
+                runs-on:
+                   - windows
+                   - self.hosted
+                name: Valor Variables
+                script:
+                  - |
+                     echo "'TAG= $TAG'"
+                     echo "'TESTTYPE= $TESTTYPE'"
+                     echo "'LANG= $LANG'"
+            - step:
+                runs-on:
+                   - windows
+                   - self.hosted
+                name: Test Lippia
+                image: crowdar/lippia:3.1.2.2
+                script: 
+                  - apt-get install -y zip
+                  - mvn test -P$TESTTYPE -Dcrowdar.cucumber.filter="'$TAG'" -Dcrowdar.cucumber.filter.language="'$LANG'" || true
+                  - cd target && cd reports
+                  - zip -r artifact.zip *
+                  - pipe: atlassian/bitbucket-upload-file:0.3.3
+                    variables:
+                      BITBUCKET_USERNAME: 'AlanBarani'
+                      BITBUCKET_APP_PASSWORD: 'ATBBqeXsnCu2TPJrk5X3VbhSS4bW8A5BF183'
+                      FILENAME: 'artifact.zip'
+                      
+ 
+ ###################### Empieza Seccion auto del pipeline ####################
+
+  default:  
+      - parallel:       
+          steps:
+            - step: 
+                runs-on:
+                   - windows
+                   - self.hosted
+                name: Valor Variables
+                script:
+                  - |
+                     echo "'BITBUCKET_TAG= $BITBUCKET_TAG'"
+                     echo "'BITBUCKET_TESTTYPE= $BITBUCKET_TESTTYPE'"
+                     echo "'BITBUCKET_LANG= $BITBUCKET_LANG'"
+            - step:
+                runs-on:
+                   - windows
+                   - self.hosted
+                name: Test Lippia
+                image: crowdar/lippia:3.1.2.2
+                script: 
+                  - apt-get install -y zip
+                  - mvn test -P$BITBUCKET_TESTTYPE -Dcrowdar.cucumber.filter="'$BITBUCKET_TAG'" -Dcrowdar.cucumber.filter.language="'$BITBUCKET_LANG'" || true
+                  - cd target && cd reports
+                  - zip -r artifact.zip *
+                  - pipe: atlassian/bitbucket-upload-file:0.3.3
+                    variables:
+                      BITBUCKET_USERNAME: 'AlanBarani'
+                      BITBUCKET_APP_PASSWORD: 'ATBBqeXsnCu2TPJrk5X3VbhSS4bW8A5BF183'
+                      FILENAME: 'artifact.zip'
+                  
