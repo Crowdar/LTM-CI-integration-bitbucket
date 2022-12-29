@@ -1,4 +1,4 @@
-# Pipeline Sample WEB
+# Pipeline Sample API
  Es un proyecto que tiene como finalidad automatizar el testeo del codigo ingresado al repositorio, utilizando el framework Lippia.
 
 ## Consideraciones
@@ -8,7 +8,7 @@ El proyecto incluye la imagen de Lippia con todas las herramientas necesarias pa
 
 ## Como se usa
 
-* Un nuevo commit en el repositorio a cualquier branch dispara el pipeline automaticamente, iniciando las pruebas pertinentes. Si se desea cambiar esto se puede modificar en la siguiente sección del documento:
+* Un nuevo commit en el repositorio a cualquier branch dispara el pipeline automaticamente, iniciando las pruebas pertinentes. Si se desea cambiar esto se puede modificar en la siguiente secciï¿½n del documento:
 
 ```
 
