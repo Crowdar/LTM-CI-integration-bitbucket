@@ -14,9 +14,10 @@ pipelines:
       - parallel:
           steps:
             - step: 
-                runs-on:
-                   - windows
-                   - self.hosted
+              #Las siguientes 3 lineas indican que el runner se correra de manera local
+              #  runs-on:
+              #     - windows
+              #     - self.hosted
                 name: Valor Variables
                 script:
                   - |
@@ -24,9 +25,10 @@ pipelines:
                      echo "'TESTTYPE= $TESTTYPE'"
                      echo "'LANG= $LANG'"
             - step:
-                runs-on:
-                   - windows
-                   - self.hosted
+              #Las siguientes 3 lineas indican que el runner se correra de manera local
+              #  runs-on:
+              #     - windows
+              #     - self.hosted
                 name: Test Lippia
                 image: crowdar/lippia:3.1.2.2
                 script: 
