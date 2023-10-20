@@ -1,7 +1,7 @@
 image: crowdar/lippia:3.1.2.2
 pipelines:
 
-#################### Empieza Seccion manual del pipeline #####################
+#################### Manual pipeline configuration #####################
   custom:
     pipeline-manual: 
       - variables:          
@@ -14,7 +14,7 @@ pipelines:
       - parallel:
           steps:
             - step: 
-                name: Valor Variables
+                name: Print variables
                 script:
                   - |
                      echo "'TAG= $TAG'"
@@ -24,24 +24,24 @@ pipelines:
                 name: Test Lippia
                 image: crowdar/lippia:3.1.2.2
                 script: 
-                  - apt-get install -y zip
+                  - git clone https://<BITBUCKET_USER>:<BITBUCKET_PASS>@bitbucket.org/path/to/your/<AUTOMATION_PROJECT>.git
+                  - cd <AUTOMATION_PROJECT>
                   - mvn test -P$TESTTYPE -Dcrowdar.cucumber.filter="'$TAG'" -Dcrowdar.cucumber.filter.language="'$LANG'" || true
-                  - cd target && cd reports
-                  - zip -r artifact.zip *
+                  - apt-get install -y zip && cd target/reports && zip -r artifact.zip *
                   - pipe: atlassian/bitbucket-upload-file:0.3.3
                     variables:
-                      BITBUCKET_USERNAME: 'AlanBarani'
-                      BITBUCKET_APP_PASSWORD: 'ATBBqeXsnCu2TPJrk5X3VbhSS4bW8A5BF183'
+                      BITBUCKET_USERNAME: '<YOUR_USERNAME>'
+                      BITBUCKET_APP_PASSWORD: '<YOUR_BITBUCKET_APP_PASSWORD>'
                       FILENAME: 'artifact.zip'
                       
  
- ###################### Empieza Seccion auto del pipeline ####################
+ ###################### Auto pipeline configuration ####################
 
   default:  
       - parallel:       
           steps:
             - step: 
-                name: Valor Variables
+                name: Print variables
                 script:
                   - |
                      echo "'BITBUCKET_TAG= $BITBUCKET_TAG'"
@@ -51,13 +51,13 @@ pipelines:
                 name: Test Lippia
                 image: crowdar/lippia:3.1.2.2
                 script: 
-                  - apt-get install -y zip
+                  - git clone https://<BITBUCKET_USER>:<BITBUCKET_PASS>@bitbucket.org/path/to/your/<AUTOMATION_PROJECT>.git
+                  - cd <AUTOMATION_PROJECT>
                   - mvn test -P$BITBUCKET_TESTTYPE -Dcrowdar.cucumber.filter="'$BITBUCKET_TAG'" -Dcrowdar.cucumber.filter.language="'$BITBUCKET_LANG'" || true
-                  - cd target && cd reports
-                  - zip -r artifact.zip *
+                  - apt-get install -y zip && cd target/reports && zip -r artifact.zip *
                   - pipe: atlassian/bitbucket-upload-file:0.3.3
                     variables:
-                      BITBUCKET_USERNAME: 'AlanBarani'
-                      BITBUCKET_APP_PASSWORD: 'ATBBqeXsnCu2TPJrk5X3VbhSS4bW8A5BF183'
+                      BITBUCKET_USERNAME: '<YOUR_USERNAME>'
+                      BITBUCKET_APP_PASSWORD: '<YOUR_BITBUCKET_APP_PASSWORD>'
                       FILENAME: 'artifact.zip'
                   
