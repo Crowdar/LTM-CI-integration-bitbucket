@@ -23,6 +23,7 @@ Es importante editar las siguientes lineas:
   ...
 
 ```
+
 Para que el pipeline clone el repositorio donde se encuentre su proyecto de testing automatizado y ejecute dentro de la carpeta el test.
 
 > Se recomienda configurar las credenciales en variables de entorno de la herramienta de CI para evitar filtrar contraseñas en el código del repositorio.
@@ -58,8 +59,6 @@ branches:    #En lugar de 'default' escribimos 'branches'
 > https://hub.docker.com/r/crowdar/lippia/tags
 
 
-- Para que el pipeline automatico funcione primero deben configurarse las siguientes variables de entorno en Repository settings --> Repository variables: 
-![Env-var](docs/images/Env-var.png)
 - En el caso del pipeline manual estas se configuran en la siguiente seccion, o al disparar el pipeline:
 
 ``` yaml
@@ -74,8 +73,6 @@ branches:    #En lugar de 'default' escribimos 'branches'
             default: "@EN"
 ```
 
-![Run-man](docs/images/Run-Man.png)
-
 - Los valores de dichas variables se encuentran en el archivo POM.xml
 
   * **TAG**: lleva el nombre de la prueba
@@ -87,7 +84,7 @@ branches:    #En lugar de 'default' escribimos 'branches'
 * para realizar las pruebas utilizamos el comando: 
 
 ```bash
-$ mvn clean test
+$ mvn clean test #Add your -P or -D configuration here
 ```
 
 * En caso de agregar o modificar variables de entorno realizar los cambios necesarios en el script del test en los archivos YAML
