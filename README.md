@@ -41,7 +41,7 @@ Antes de comenzar es importante eliminar o comentar los comandos git clone y cd,
 
 ```
 
-* Un nuevo commit en el repositorio a cualquier branch dispara el pipeline automaticamente, iniciando las pruebas pertinentes. Si se desea cambiar esto se puede modificar en la siguiente secci�n del documento:
+* Un nuevo commit en el repositorio a cualquier branch dispara el pipeline automaticamente, iniciando las pruebas pertinentes. Si se desea cambiar esto se puede modificar en la siguiente sección del documento:
 
 ```yaml
 
@@ -52,14 +52,14 @@ branches:    #En lugar de 'default' escribimos 'branches'
             - echo "Hello"
 ```
 
-**para mas informacion ver [documentacion bitbucket](https://support.atlassian.com/bitbucket-cloud/docs/configure-bitbucket-pipelinesyml/ "documentacion bitbucket.")**
+**Para más información ver [documentación bitbucket](https://support.atlassian.com/bitbucket-cloud/docs/configure-bitbucket-pipelinesyml/ "documentación bitbucket.")**
 
-* Este pipeline trabaja con la version de lippia 3.1.2.2, en caso de querer modificarla utilizar una imagen desde el siguiente link
+* Este pipeline trabaja con la versión de lippia 3.1.2.2, en caso de querer modificarla utilizar una imagen desde el siguiente link
 
 > https://hub.docker.com/r/crowdar/lippia/tags
 
 
-- En el caso del pipeline manual estas se configuran en la siguiente seccion, o al disparar el pipeline:
+- En el caso del pipeline manual estas se configuran en la siguiente sección, o al disparar el pipeline:
 
 ``` yaml
   custom:
@@ -89,6 +89,6 @@ $ mvn clean test #Add your -P or -D configuration here
 
 * En caso de agregar o modificar variables de entorno realizar los cambios necesarios en el script del test en los archivos YAML
 
-### Los reportes son almacenados en un zip que se encuentra en la opcion DOWNLOADS en la barra lateral de las opciones del repositorio, se eliminan automaticamente luego de 14 dias, y seran generados una vez que la ejecucion de las pruebas haya finalizado.
+> Los reportes son almacenados en un zip que se encuentra en la opcion DOWNLOADS en la barra lateral de las opciones del repositorio, se eliminan automaticamente luego de 14 dias, y seran generados una vez que la ejecucion de las pruebas haya finalizado.
 
-**para mas informacion ver [documentacion lippia.](https://github.com/Crowdar/lippia-web-sample-project#getting-started "documentacion lippia.")**
+**Para más informacion ver la [documentación lippia.](https://github.com/Crowdar/lippia-web-sample-project#getting-started "documentación lippia.")**
